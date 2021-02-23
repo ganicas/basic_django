@@ -1,0 +1,41 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <br>
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <!-- Edit user form -->
+                </div>
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Edit User</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{ edit_form }}
+                                    </div>
+                                </div>
+                                <input class="btn btn-success btn-sm" type="submit" value="save" />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="float-lg-right">
+                        <a href="/robots_machine/api/user/change-password/"><button class="btn btn-success btn-sm"><i class="sy_plus"></i>Change password</button></a>
+                    </div>
+                </div>
+                <!-- End Edit user form -->
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>

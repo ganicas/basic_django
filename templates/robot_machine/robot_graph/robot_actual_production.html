@@ -1,0 +1,149 @@
+<div id="container" style="height: 230px; min-width: 310px"></div>
+<div class="dropdown">
+    <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+        <i class="now-ui-icons loader_gear"></i>
+    </button>
+    <form>
+        <select class="dropdown-menu dropdown-menu-right" id="robot_working_progress_chart">
+            <option value="24">Last 24 hour</option>
+            <option value="12">Last 12 hour</option>
+            <option value="6">Last 6 hour</option>
+            <option value="3">Last 3 hour</option>
+            <option value="1">Last hour</option>
+            <option value="48">Yesterday</option>
+            <option value="168">Last 7 Days</option>
+            <option value="720">Last Month</option>
+        </select>
+    </form>
+</div>
+<script>
+// Create the chart
+var robot_id={{dashboard_data.robot_id}}
+var robot_graph_limiter = 24;
+
+$(document).ready(function() {
+
+    var options = {
+        chart: {
+            backgroundColor: "#1e1e1e",
+            renderTo: 'container',
+            events: {
+                load: function() {
+                    // set up the updating of the chart each 15 second with time delta
+                    var chart = this,
+                    series = chart.series[0];
+                    setInterval(function() {
+                        var robot_data = series.data
+                        if(robot_data) {
+                            if(robot_data.length > 1){
+
+                                var last_x = robot_data[robot_data.length - 1]
+                                $.ajax({
+                                    url: '/robot/dashboard/line/chart/delta/' + robot_id + '/' + last_x.x,
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        if(data.length > 1){
+                                            for (var i = 0; i < data.length; i++) {
+                                                var item = data[i];
+                                                var new_data_datetime = new Date(item[0]).getTime();
+                                                setExtremes = chart.xAxis[0].max == chart.xAxis[0].dataMax && chart.fixedRange;
+                                                series.addPoint([new_data_datetime, item[1]], true, true)
+                                                if (setExtremes) {
+                                                    chart.xAxis[0].setExtremes(new_data_datetime - chart.fixedRange, new_data_datetime);
+                                                }
+                                                chart.redraw();
+                                            }
+                                        }
+                                    },
+                                });
+                            }
+                        }
+                    }, 15000);
+                }
+            },
+        },
+
+        time: {
+            useUTC: false
+        },
+
+        title: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Hours of the Day'
+            },
+            type: 'datetime',
+
+            dateTimeLabelFormats : {
+                hour: '%I %p',
+                minute: '%I:%M %p'
+            }
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Values',
+                margin: 80
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        series: [{
+            name: '',
+            data: []
+        }],
+        navigator: {
+            enabled: false
+        },
+        scrollbar: {
+            enabled: false
+        }
+        }
+        $.ajax({
+            url: '/robot/dashboard/line/chart/'+robot_id+'/'+graph_limiter,
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                var my_data = []
+                for(var i =0;i < data.length;i++) {
+                    var item = data[i];
+                    var e = new Date(item[0]).getTime();
+                    my_data.push([e, item[1]])
+                }
+                options.series[0].data = my_data;
+                chart = new Highcharts.Chart(options);
+            },
+        });
+        $("#robot_working_progress_chart").change(function(){
+            robot_graph_limiter = $('#robot_working_progress_chart').find(":selected").val();
+            console.log('robot_graph_limiter: ', robot_graph_limiter)
+        $.ajax({
+            url: '/robot/dashboard/line/chart/'+robot_id+'/'+robot_graph_limiter,
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                var my_data = []
+                for(var i =0;i < data.length;i++) {
+                    var item = data[i];
+                    var e = new Date(item[0]).getTime();
+                    my_data.push([e, item[1]])
+                }
+                options.series[0].data = my_data;
+                chart = new Highcharts.Chart(options);
+            },
+        });
+        });
+});
+</script>

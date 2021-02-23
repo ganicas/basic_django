@@ -1,0 +1,72 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <br>
+    <!-- Add new notification form -->
+    <div class="container">
+        <div class="content">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">Add new notification</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            {{ form.email1 }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.email2 }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.email3 }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.email4 }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.email5 }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.robot_activity }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-control">
+                                                <label>Error notification</label>
+                                                {{ form.error }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-control">
+                                                <label>Warning notification</label>
+                                                {{ form.warning }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-control">
+                                                <label>Info notification</label>
+                                                {{ form.info }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="btn btn-success btn-sm" type="submit" value="save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add notification user form -->
+    {% endblock %}
+</body>

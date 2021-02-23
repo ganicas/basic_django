@@ -1,0 +1,34 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">Rescan robot machine</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-10">
+                                    {{ form }}
+                                </div>
+                            </div>
+                            <input class="btn btn-success btn-sm" type="submit" value="save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+

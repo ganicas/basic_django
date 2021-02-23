@@ -1,0 +1,35 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <br>
+    <!-- Add new user form -->
+    <div class="container">
+        <div class="content">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">Add new User</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-10">
+                                    {{ form }}
+                                </div>
+                            </div>
+                            <input class="btn btn-success btn-sm" type="submit" value="save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add new user form -->
+    {% endblock %}
+</body>

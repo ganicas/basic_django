@@ -1,0 +1,341 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <br>
+    <!--User role template form -->
+    <div class="container">
+        <div class="content">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">User group permission templates</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p>Admin dashboard for engineer user group</p>
+                            <!-- Engineer dashboard -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Engineer dashboard</label>
+                                        {{ form.engineer_administration_dashboard }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Engineer dashboard -->
+                            <br>
+                            <!-- Engineer Company -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company view </label>
+                                        {{ form.engineer_company_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company delete </label>
+                                        {{ form.engineer_company_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company edit </label>
+                                        {{ form.engineer_company_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Engineer Company -->
+                            <br>
+                            <!-- Engineer Product -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product view </label>
+                                        {{ form.engineer_product_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product delete </label>
+                                        {{ form.engineer_product_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product edit </label>
+                                        {{ form.engineer_product_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Engineer Product -->
+                            <br>
+                            <!-- Engineer Device -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device view </label>
+                                        {{ form.engineer_device_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device delete </label>
+                                        {{ form.engineer_device_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device edit </label>
+                                        {{ form.engineer_device_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Engineer Device -->
+                            <br>
+                            <!-- Engineer Users -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users view </label>
+                                        {{ form.engineer_users_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users delete </label>
+                                        {{ form.engineer_users_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users edit </label>
+                                        {{ form.engineer_users_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Engineer Users -->
+                            <br>
+                            <p>Supervisor permissions template</p>
+                            <!-- Supervisor dashboard -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Admin dashboard for supervisor user group</label>
+                                        {{ form.supervisor_administration_dashboard }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Supervisor dashboard -->
+                            <br>
+                            <!-- Supervisor Company -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company view </label>
+                                        {{ form.supervisor_company_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company delete </label>
+                                        {{ form.supervisor_company_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company edit </label>
+                                        {{ form.supervisor_company_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Supervisor Company -->
+                            <br>
+                            <!-- Supervisor Product -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product view </label>
+                                        {{ form.supervisor_product_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product delete </label>
+                                        {{ form.supervisor_product_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product edit </label>
+                                        {{ form.supervisor_product_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Supervisor Product -->
+                            <br>
+                            <!-- Supervisor Device -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device view </label>
+                                        {{ form.supervisor_device_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device delete </label>
+                                        {{ form.supervisor_device_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device edit </label>
+                                        {{ form.supervisor_device_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Supervisor Device -->
+                            <br>
+                            <!-- Supervisor Users -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users view </label>
+                                        {{ form.supervisor_users_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users delete </label>
+                                        {{ form.supervisor_users_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users edit </label>
+                                        {{ form.supervisor_users_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Supervisor Users -->
+                            <br>
+                            <p>Operator permissions template</p>
+                            <!-- Operator dashboard -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Admin dashboard for operator user group</label>
+                                        {{ form.operator_administration_dashboard }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Operator dashboard -->
+                            <br>
+                            <!-- Operator Company -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company view </label>
+                                        {{ form.operator_company_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company delete </label>
+                                        {{ form.operator_company_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Company edit </label>
+                                        {{ form.operator_company_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Operator Company -->
+                            <br>
+                            <!-- Operator Product -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product view </label>
+                                        {{ form.operator_product_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product delete </label>
+                                        {{ form.operator_product_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Product edit </label>
+                                        {{ form.operator_product_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Operator Product -->
+                            <br>
+                            <!-- Operator Device -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device view </label>
+                                        {{ form.operator_device_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device delete </label>
+                                        {{ form.operator_device_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Device edit </label>
+                                        {{ form.operator_device_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Operator Device -->
+                            <br>
+                            <!-- Operator Users -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users view </label>
+                                        {{ form.operator_users_view }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users delete </label>
+                                        {{ form.operator_users_delete }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-control">
+                                        <label>Users edit </label>
+                                        {{ form.operator_users_edit }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Operator Users -->
+                            <input class="btn btn-success btn-sm" type="submit" value="save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End User role template form  -->
+    {% endblock %}
+</body>

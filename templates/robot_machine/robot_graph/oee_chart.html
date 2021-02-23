@@ -1,0 +1,58 @@
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+path.slice{
+	stroke-width:2px;
+}
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+svg text.oee_percent{
+	fill:white;
+	text-anchor:middle;
+	font-size:20px;
+}
+</style>
+<div id="oee_chart" class="svg-container">
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script  src="{{ '/static/js/charts/oee_chart.js' }}"></script>
+    <script>
+        /*
+        d3.json("http://localhost:8000/oee_chart/"+robot_id+"/?format=json",  function(error, data){
+            if (error) throw error;
+            console.log(data)
+            var svg = d3.select("#oee_chart").append("svg").attr("width",500).attr("height",300);
+            svg.append("g").attr("id","oee");
+            if(data == 0){
+                var basic = 99
+            }else if (data != 0){
+                var basic = 100 - data;
+
+            }
+            oee_chart.draw("oee", [{label: "Basic", color:"#3366CC", value: basic}, {label: "Plus",  color: "#FF9900", value: data}], 150, 100, 130, 100, 30, 0);
+            document.getElementById('oee_dashboard').innerHTML = 'OEE ' +data +'%';
+        });
+        */
+        var svg = d3.select("#oee_chart").append("svg").attr("width","100%").attr("height","130%");
+        svg.append("g").attr("id","machine_oee");
+        var data={{dashboard_data.oee_final}}
+        function oee_reload(data){
+
+            if(data == 0){
+                var basic = 99
+            }else if(data == 100){
+                var basic = 0;
+            }else if (data != 0){
+                var basic = 100 - data;
+            }
+            oee_chart.draw("machine_oee", [{label: "Basic", color:"#3366CC", value: basic}, {label: "Plus",  color: "#FF9900", value: data}], 180, 105, 130, 100, 30, 0);
+            document.getElementById('oee_dashboard').innerHTML = 'OEE ' +data +'%';
+        };
+        oee_reload(data)
+    </script>
+</div>

@@ -1,0 +1,348 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+</head>
+{% extends "administration_base.html" %}
+{% include "robot_machine/robot_graph/robot_refresh_animation.html" %}
+{% block content %}
+    <div class="panel-header panel-header-sm">
+        <canvas id="bigDashboardChart"></canvas>
+    </div>
+    <div class="col-md-12 col-xs-12" id="card_1_body">
+        <br>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category" style="color: #FFFFFF"><strong>Productivity Dashboard</strong></h5>
+                        <br>
+                        <p style="color: greenyellow" id="dashboard_current_limiter"></p>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                                <i class="now-ui-icons loader_gear"></i>
+                            </button>
+                            <form>
+                                <select class="dropdown-menu dropdown-menu-right" id="card_1_drop_down">
+                                    <option value="24">Last 24 hour</option>
+                                    <option value="12">Last 12 hour</option>
+                                    <option value="6">Last 6 hour</option>
+                                    <option value="3">Last 3 hour</option>
+                                    <option value="1">Last hour</option>
+                                    <option value="48">Yesterday</option>
+                                    <option value="168">Last 7 Days</option>
+                                    <option value="720">Last Month</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive-md table-hover">
+                            <table class="specific_robot_dashboard table-bordered" id="table_data_refresh">
+                                <tr>
+                                    <td>Planned production time:  <strong>{{dashboard_data.planned_production_time }}</strong></td>
+                                    <td style="color: #ff1e0f">Active Alarms: <strong>{{dashboard_data.active_alarms }}</strong></td>
+                                    <td>Not acknowledged: </td>
+                                    <td style="color: #FFFF00" id="time"></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #dd911c">Resource: <strong>{{dashboard_data.robot_resource }}</strong></td>
+                                    <td colspan="3">Production Capacity (units/hour):</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #dd911c">Product: <strong>{{dashboard_data.robot_product_name }}</strong></td>
+                                    <td colspan="2" style="color: #7dff3e">Actual Production:</td>
+                                    {% if dashboard_data.running_status %}
+                                        <td  id ='running_status' colspan="3" style="color: green">Status: <strong>Running</strong></td>
+                                    {%else %}
+                                        <td  id ='running_status' colspan="3" style="color: red">Status: <strong>Not running</strong></td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td style="color: #dd911c" id="date_dashboard"></td>
+                                    <td  colspan="3">Shift: </td>
+                                </tr>
+                                    <td id="actual_oee">Actual OEE: <strong>{{dashboard_data.oee_final }} %</strong></td>
+                                    <td id="actual_availability">Availability: <strong>{{dashboard_data.availability }} %</strong></td>
+                                    <td id="actual_performance">Performance: <strong>{{dashboard_data.performance }} %</strong></td>
+                                    <td id="actual_quality">Quality: <strong>{{dashboard_data.quality }} %</strong></td>
+
+                                </tr>
+                                <tr>
+                                    <td >Availability Time (min.):</td>
+                                    <td>Expected Units: <strong>{{dashboard_data.excepted_units }}</strong></td>
+                                    <td colspan="2" style="color: #7dff3e">Good Units: <strong>{{dashboard_data.good_units }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #FFFF00">Running time (min.): <strong>{{ dashboard_data.running_time }}</strong></td>
+                                    <td>Produced Units: <strong>{{dashboard_data.produced_units }}</strong></td>
+                                    <td colspan="2" style="color: #ff1e0f">Rejected Units: <strong>{{dashboard_data.rejected_units }}</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_1">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+                            <div id="robot_progress_line">
+                                <div id="line_1">
+                                    <span class="expand"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-4">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category" id="oee_dashboard"></h5>
+                        <p class="float-right" style="color: greenyellow" id="oee_dashboard_current_limiter"></p>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area" id="oee_chart_area">
+                            {% block oee_chart %}
+                               {% include "robot_machine/robot_graph/oee_chart.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_2">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+                            <div id="robot_progress_line">
+                                <div id="line_2">
+                                    <span class="expand_oee"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-4">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category" id="availability_dashboard"></h5>
+                        <p class="float-right" style="color: greenyellow" id="availability_dashboard_current_limiter"></p>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {% block availibility_chart %}
+                               {% include "robot_machine/robot_graph/availability_chart.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_3">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+                            <div id="robot_progress_line">
+                                <div id="line_3">
+                                    <span class="expand_availability"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-4">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category" id="performance_dashboard"></h5>
+                        <p class="float-right" style="color: greenyellow" id="performance_dashboard_current_limiter"></p>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {% block performance %}
+                                {% include "robot_machine/robot_graph/performance.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_4">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+
+                            <div id="robot_progress_line">
+                                <div id="line_4">
+                                    <span class="expand_performance"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-4">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category" id="quality_dashboard"></h5>
+                        <p class="float-right" style="color: greenyellow" id="quality_dashboard_current_limiter"></p>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {% block quality %}
+                               {% include "robot_machine/robot_graph/quality.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_5">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+                            <div id="robot_progress_line">
+                                <div id="line_5">
+                                    <span class="expand_quality"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-xs-4">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category">OEE graph</h5>
+                        <p class="float-right" style="color: greenyellow" id="oee_whole_dashboard_current_limiter"></p>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {% block oee_bar_chart %}
+                               {% include "robot_machine/robot_graph/oee_bar_chart.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_6">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+
+                            <div id="robot_progress_line">
+                                <div id="line_6">
+                                    <span class="expand_oee_bar_chart"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="card card-chart" id="card_1">
+                    <div class="card-header">
+                        <h5 class="card-category">Robot working progress</h5>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            {% block robot_actual_production %}
+                                {% include "robot_machine/robot_graph/robot_actual_production.html" %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <div id="quotes_7">
+                                <i class="now-ui-icons loader_refresh spin"></i>Just Updated
+                            </div>
+
+                            <div id="robot_progress_line">
+                                <div id="line_7">
+                                    <span class="expand_robot_actual_production"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function updateClock() {
+            var now = new Date(),
+            time = (now.getHours()<10?'0':'') + now.getHours() +':' + (now.getMinutes()<10?'0':'')+ now.getMinutes(),
+            date = [now.getDate(), now.getMonth(), now.getFullYear()].join('.');
+            document.getElementById('time').innerHTML = 'Time: ' + time;
+            document.getElementById('date_dashboard').innerHTML = 'Date: ' + date;
+            setTimeout(updateClock, 1000);
+        }
+        updateClock();
+
+        var robot_id={{dashboard_data.robot_id}}
+        var graph_limiter = 24;
+        $("#card_1_drop_down").change(function(){
+            graph_limiter = $('#card_1_drop_down').find(":selected").val();
+
+        });
+        function autoReload(url) {
+        setTimeout(function() {
+           $.ajax({
+                type: "GET",
+                url: url,
+                success: function(data) {
+                    var d = document.getElementById("table_data_refresh");
+                    d.innerHTML = $('<div />').html(data).find('#table_data_refresh').html();
+                    updateClock();
+                    // get drop-down selected option
+                    var actual_oee = $("#actual_oee").text().match(/\d+/)[0];
+                    var actual_availability = $("#actual_availability").text().match(/\d+/)[0];
+                    var actual_performance = $("#actual_performance").text().match(/\d+/)[0];
+                    var actual_quality = $("#actual_quality").text().match(/\d+/)[0];
+
+                    document.getElementById('oee_dashboard_current_limiter').innerHTML = 'Last ' +graph_limiter +'h';
+                    document.getElementById('availability_dashboard_current_limiter').innerHTML = 'Last ' +graph_limiter+'h';
+                    document.getElementById('performance_dashboard_current_limiter').innerHTML = 'Last ' +graph_limiter+'h';
+                    document.getElementById('quality_dashboard_current_limiter').innerHTML = 'Last ' +graph_limiter+'h';
+                    document.getElementById('oee_whole_dashboard_current_limiter').innerHTML = 'Last ' +graph_limiter+'h';
+                    document.getElementById('dashboard_current_limiter').innerHTML = 'Last ' +graph_limiter+'h';
+
+                    oee_reload(actual_oee);
+                    availability_reload(actual_availability);
+                    performance_reload(actual_performance);
+                    quality_reload(actual_quality);
+                    MyChartComponent.initHighcharts();
+                    MyChartComponent.setDataFromApi(Number(actual_oee), Number(actual_availability), Number(actual_performance), Number(actual_quality));
+                    MyChartComponent.updateChart();
+
+                    loader()
+                    $("#quotes_1").css("color", "green");
+                    $("#quotes_2").css("color", "green");
+                    $("#quotes_3").css("color", "green");
+                    $("#quotes_4").css("color", "green");
+                    $("#quotes_5").css("color", "green");
+                    $("#quotes_6").css("color", "green");
+                    $("#quotes_7").css("color", "green");
+                    var time = 500;
+                    setTimeout(function() {
+                        $("#quotes_1").css("color", "gray");
+                        $("#quotes_2").css("color", "gray");
+                        $("#quotes_3").css("color", "gray");
+                        $("#quotes_4").css("color", "gray");
+                        $("#quotes_5").css("color", "gray");
+                        $("#quotes_6").css("color", "gray");
+                        $("#quotes_7").css("color", "gray");
+                    }, time);
+                }
+           });
+            autoReload('/robot/dashboard/'+robot_id+'/'+graph_limiter);  // calling Dashboard
+        }, 5000);
+        };
+
+        autoReload('/robot/dashboard/'+robot_id+'/'+graph_limiter); // calling Dashboard
+    </script>
+{% endblock %}
+

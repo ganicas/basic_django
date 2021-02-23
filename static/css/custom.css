@@ -1,0 +1,143 @@
+#card_1_body{
+    background-color: #6f6f6f;
+}
+
+#card_1{
+    background-color: #1e1e1e;
+}
+
+#card_2{
+    background-color: #bfbfbf;
+}
+.chart-area{
+}
+.specific_robot_dashboard {
+    width: 100%;
+    text-align: center;
+    display: table;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+.specific_robot_dashboard th, .specific_robot_dashboard td, .specific_robot_dashboard tr{
+    color:  #FFFFFF;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    background-color: #363636;
+
+}
+.widget_filter,
+.widget_adding {
+	padding: 20px;
+	border-bottom: 1px solid #eaeaea;
+	background-color: #F5F5F5;
+}
+input[type=text],
+input[type=tel],
+input[type=password],
+input[type=email],
+input[type=number],
+input[type=url],
+input[type=datetime],
+input[type=search],
+select,
+textarea {
+	margin: 0;
+	font-size: 15px;
+	padding: 7px 12px;
+	height: 42px;
+	border: 1px solid #c4c4c4;
+	width: 95%;
+	color: #1f1f1f;
+	background-color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.specific_robot_dashboard td{
+    border-color: #6a6a6a !important;
+}
+
+.robot_export_dashboard{
+}
+
+
+#alarms_robot_row{
+    background-color: #ff423a;
+    font-weight: bold;
+}
+#warning_robot_row{
+    background-color: #ffc540;
+    font-weight: bold;
+}
+#total_robots_row{
+    background-color: #6667ff;
+    font-weight: bold;
+}
+#total_inactive_one_day_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+#total_inactive_one_hour_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+#total_alarms_one_day_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+#total_alarms_one_hour_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+#total_robot_warning_one_day_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+#total_robot_warning_one_hour_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+#user_role_administration_row{
+    font-weight: bold;
+    background-color: #303030;
+}
+
+
+#card_1_drop_down{
+    border-radius: 5px;
+}
+
+#dashboard_selector{
+    background-color: #4b4b4b;
+}
+
+
+
+#btn-group button {
+  background-color: #575757; /* Green background */
+  color: white; /* White text */
+  padding: 7px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: inherit; /* Float the buttons side by side */
+  width: 100%;
+}
+
+/* Clear floats (clearfix hack) */
+#btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+/* Add a background color on hover */
+#btn-group button:hover {
+  background-color: #2c2c2c;
+}
+

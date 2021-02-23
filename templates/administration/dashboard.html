@@ -1,0 +1,253 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+</head>
+
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_daterangepicker = True %}
+{% set use_common = True %}
+{% set use_toastr = True %}
+
+<body>
+    {% block content %}
+        <div class="panel-header panel-header-sm">
+            <canvas id="bigDashboardChart"></canvas>
+    </div>
+        <br>
+        <br>
+        <div class="col-lg-12 col-xs-12">
+            <div class="card card-chart" >
+                <div class="card-header">
+                    <h5 class="card-category" style="color: #000000"><strong>General productivity dashboard</strong></h5>
+                    <div class="card-body">
+                        <div class="table-responsive-md table-hover">
+                            <table class="specific_robot_dashboard table-bordered" id="table_data_refresh">
+                                <tr>
+                                    <td>Total robots: </td>
+                                    <td>Total active robots: </td>
+                                    <td>Robot in alarms: </td>
+                                    <td>Robot in warning: </td>
+                                </tr>
+                                    <td colspan="2">Robots in alarm more than 8 hour: </td>
+                                    <td>Robots in warning more than 8 hour: </td>
+                                    <td>Robots inactive more than 3 hours:</td>
+                                <tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-xs-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h5 class="card-category" style="color: #000000"><strong>Robot status lists</strong></h5>
+                    <div  class="card-body">
+                        <div id="btn-group">
+                            <div class="table-responsive-md table-hover" >
+                                <table class="table table-bordered" id="table_data_refresh">
+                                    <tr>
+                                        <td ><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".active_robots_lists">Active robots list</button></td>
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".warning_robots_lists">Warning robots list</button></td>
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".alarm_robots_lists">Alarm robot list</button></td>
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".inactive_robots_3h_lists">Robots inactive more than 3 hours</button></td>
+                                    <tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade active_robots_lists" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Active robots, last 8 hours</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive-sm">
+                                <table class="table table-striped table table-hover" id="robot_active_table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="row">Name</th>
+                                            <th scope="row">Monitoring</th>
+                                            <th scope="row">Serial No.</th>
+                                            <th scope="row">Company</th>
+                                            <th scope="row">IP address</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade warning_robots_lists" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Robot warning, last 8 hours</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive-sm">
+                                <table class="table table-striped table table-hover" id="robot_warning_last_8_hour">
+                                    <thead>
+                                        <tr>
+                                            <th scope="row">Name</th>
+                                            <th scope="row">Monitoring</th>
+                                            <th scope="row">Serial No.</th>
+                                            <th scope="row">Company</th>
+                                            <th scope="row">IP address</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade alarm_robots_lists" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Robot alarm, last 8 hours</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive-sm">
+                                <table class="table table-striped table table-hover" id="robot_alarms_last_8_hour">
+                                    <thead>
+                                        <tr>
+                                            <th scope="row">Name</th>
+                                            <th scope="row">Monitoring</th>
+                                            <th scope="row">Serial No.</th>
+                                            <th scope="row">Company</th>
+                                            <th scope="row">IP address</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal inactive_robots_3h_lists" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Not active robots, last 3 hours</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive-sm">
+                                <table class="table table-striped table table-hover" id="robot_non_active">
+                                    <thead>
+                                        <tr>
+                                            <th scope="row">Name</th>
+                                            <th scope="row">Monitoring</th>
+                                            <th scope="row">Serial No.</th>
+                                            <th scope="row">Company</th>
+                                            <th scope="row">IP address</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-xs-12">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h5 class="card-category" style="color: #000000"><strong>Robot data export</strong></h5>
+                    <div  class="card-body">
+                        <p>Robot data export with period filter, company filter, city filter and robot status filter.</p>
+                        <p>Robot status means robot is <strong>configured</strong> and ready!</p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".robot_data_export">General robot data export</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal robot_data_export" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Select period for data export</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="widget_filter">
+                                <form id="fm_vends_filter" method="post" action="api/report/service/download_robot_list_report/">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="" id="search_data_filter_hidden" name="search_data_filter_hidden"/>
+                                        <div id="export_period">
+                                            <label for="start">{% trans %}Period{% endtrans %}</label>
+                                            <div class="col_12">
+                                                <input type="text" id="datetimerange" name="datetimerange" />
+                                                <input type="hidden" id="datetimerange_start" name="start" />
+                                                <input type="hidden" id="datetimerange_end" name="end" />
+                                                <input type="hidden" id="datetimerange_start_time" name="start_time" />
+                                                <input type="hidden" id="datetimerange_end_time" name="end_time" />
+                                            </div>
+                                        </div>
+                                        <div id="company_filter">
+                                            <label for="company_select">{% trans %}Company{% endtrans %}</label>
+                                            <select id="company_select" name="company">
+                                                <option value="0" selected="selected">{% trans %}All companies{% endtrans %}</option>
+                                                {% for region in regions%}
+                                                    <option value=""></option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div id="city_filter">
+                                            <label for="city_select">Robot City</label>
+                                            <select id="city_select" name="city">
+                                                <option value="0" selected="selected">{% trans %}All cities{% endtrans %}</option>
+                                                {% for type in types %}
+                                                    <option value=""></option>
+                                                {% endfor%}
+                                            </select>
+                                        </div>
+
+                                        <div id="robot_status" class="col_3">
+                                            <label for="tax_rate">{% trans %}Robot status{% endtrans %}</label>
+                                            <select name="robot_status_mode" id="robot_status_mode">
+                                                <option value="all">{% trans %}All robot status{% endtrans %}</option>
+                                                <option value="test">{% trans %}Enabled{% endtrans %}</option>
+                                                <option value="live">{% trans %}Disabled{% endtrans %}</option>
+                                            </select>
+                                        </div>
+                                    <input type="submit" value="{% trans %}Download Report{% endtrans %}" class="btn btn_silver" id="download_btn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% block scripts %}
+        <script src="/static/js/dialog_table/active_robots_data_table.js"></script>
+        <script src="/static/js/dialog_table/warning_robots_data_table.js"></script>
+        <script src="/static/js/dialog_table/alarm_robots_data_table.js"></script>
+        <script src="/static/js/dialog_table/not_active_robot_data_table.js"></script>
+        <script src="/static/js/dialog_table/robot_data_exporter.js"></script>
+    {% endblock %}
+
+    {% endblock %}
+
+</body>
+

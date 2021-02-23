@@ -1,0 +1,262 @@
+<style type="text/css">
+#robot_progress_line {
+	background: #161616 url(/static/img/pattern_40.gif) top left repeat;
+	margin: 0;
+	padding: 0;
+	font: 12px normal Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font: 4em normal Arial, Helvetica, sans-serif;
+	padding: 20px;	margin: 0;
+	text-align:center;
+	color:#bbb;
+}
+
+#line_1 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+#line_2 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+#line_3 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+
+#line_4 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+
+#line_5 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+
+
+#line_6 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+
+
+#line_7 {
+	width:100%;
+	height:5px;
+	background:#000;
+}
+
+
+.fullwidth .expand {
+	width:96%;
+	height:1px;
+	margin:2px 0;
+	background:#2187e7;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+
+.fullwidth .expand_oee {
+	width:91%;
+	height:1px;
+	margin:2px 0;
+	background:#FF9900;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(255, 220, 26, 0.7);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+.fullwidth .expand_availability {
+	width:91%;
+	height:1px;
+	margin:2px 0;
+	background:#109618;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(115, 255, 28, 0.7);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+
+.fullwidth .expand_performance {
+	width:91%;
+	height:1px;
+	margin:2px 0;
+	background:#ff601c;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(255, 189, 35, 0.54);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+
+
+.fullwidth .expand_quality {
+	width:91%;
+	height:1px;
+	margin:2px 0;
+	background: #e01025;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(255, 24, 47, 0.98);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+.fullwidth .expand_oee_bar_chart {
+	width:96%;
+	height:1px;
+	margin:2px 0;
+	background:#2187e7;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+
+.fullwidth .expand_robot_actual_production {
+	width:97%;
+	height:1px;
+	margin:2px 0;
+	background:#2187e7;
+	position:absolute;
+	box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
+    -moz-animation:fullexpand 600ms ease-out;
+	-webkit-animation:fullexpand 600ms ease-out;
+}
+
+@-moz-keyframes fullexpand {
+	0%  { width:0px;}
+	100%{ width:90%;}
+}
+@-webkit-keyframes fullexpand {
+	0%  { width:0px;}
+	100%{ width:90%;}
+}
+
+/* Loader Bar */
+
+ul#loadbar {
+	list-style:none;
+	width:140px;
+	margin:0 auto;
+	padding-top:50px;
+	padding-bottom:75px;
+}
+ul#loadbar li {
+	float:left;
+	position:relative;
+	width:11px;
+	margin-left:1px;
+	border-left:1px solid #111; border-top:1px solid #111; border-right:1px solid #333; border-bottom:1px solid #333;
+	background:#000;
+}
+
+ul#loadbar li:first-child { margin-left:0; }
+
+.ins .bar {
+	background-color:#2187e7;
+	background-image: -moz-linear-gradient(45deg, #2187e7 25%, #a0eaff);
+	background-image: -webkit-linear-gradient(45deg, #2187e7 25%, #a0eaff);
+	width:11px;
+	opacity:0;
+	-webkit-animation:fill .5s linear forwards;
+	-moz-animation:fill .5s linear forwards;
+}
+
+@-moz-keyframes fill {
+	0%{ opacity:0; }
+	100%{ opacity:1; }
+}
+
+@-webkit-keyframes fill {
+	0%{ opacity:0; }
+	100%{ opacity:1; }
+}
+
+/* Trigger button for javascript */
+
+.trigger, .triggerFull, .triggerBar {
+	background: #000000;
+	background: -moz-linear-gradient(top, #161616 0%, #000000 100%);
+	background: -webkit-linear-gradient(top, #161616 0%,#000000 100%);
+	border-left:1px solid #111; border-top:1px solid #111; border-right:1px solid #333; border-bottom:1px solid #333;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 0.8em;
+	text-decoration: none;
+	text-transform: lowercase;
+	text-align: center;
+	color: #fff;
+	padding: 10px;
+	border-radius: 3px;
+	display: block;
+	margin: 0 auto;
+}
+
+.trigger:hover, .triggerFull:hover, .triggerBar:hover {
+	background: -moz-linear-gradient(top, #202020 0%, #161616 100%);
+	background: -webkit-linear-gradient(top, #202020 0%, #161616 100%);
+}
+
+</style>
+<script>
+
+    function loader() {
+	        $('#line_1').removeClass('fullwidth');
+			$('#line_1').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+			//
+            $('#line_2').removeClass('fullwidth');
+			$('#line_2').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+            //
+            $('#line_3').removeClass('fullwidth');
+			$('#line_3').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+			//
+            $('#line_3').removeClass('fullwidth');
+			$('#line_3').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+			//
+            $('#line_4').removeClass('fullwidth');
+			$('#line_4').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+			//
+            $('#line_5').removeClass('fullwidth');
+			$('#line_5').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+			//
+            $('#line_6').removeClass('fullwidth');
+			$('#line_6').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+			//
+            $('#line_7').removeClass('fullwidth');
+			$('#line_7').removeClass('fullwidth').delay(10).queue(function(next){
+				$(this).addClass('fullwidth');
+		        next();
+		    });
+		    return false;
+    };
+
+</script>

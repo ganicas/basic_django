@@ -1,0 +1,30 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <br>
+    <div class="container">
+        <div class="content">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">Add working data</h5>
+                        <p>Please add specific csv file in defined structure, and this file will become a data of robot simulator!</p>
+                    </div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" action="/server/robots/data/" method="post">
+                            {% csrf_token %}
+                            {{ form }}
+                            <input class="btn btn-success btn-sm" type="submit" value="save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>

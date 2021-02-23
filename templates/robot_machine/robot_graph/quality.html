@@ -1,0 +1,65 @@
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+path.slice{
+	stroke-width:2px;
+}
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+svg text.quality_percent{
+	fill:white;
+	text-anchor:middle;
+	font-size:20px;
+}
+
+</style>
+
+<div id="quality">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script  src="{{ '/static/js/charts/quality.js' }}"></script>
+
+    <script>
+        /*
+        var svg = d3.select("#quality").append("svg").attr("width",500).attr("height",300);
+        d3.json("http://localhost:8000/quality_chart/"+robot_id+"/?format=json",  function(error, data){
+            if (error) throw error;
+            console.log(data)
+            svg.append("g").attr("id","aaa")
+            if(data == 0){
+                var basic = 99
+            }else if (data != 0){
+                var basic = 100 - data;
+
+            }
+            quality.draw("aaa", [{label: "Basic", color:"#3366CC", value: basic}, {label: "Plus",  color: "#e20e22", value: data}], 150, 100, 130, 100, 30, 0);
+            document.getElementById('quality_dashboard').innerHTML = 'Quality ' +data +'%';
+        });
+
+        */
+        var data={{dashboard_data.quality}}
+        var svg = d3.select("#quality").append("svg").attr("width","100%").attr("height","130%");
+        svg.append("g").attr("id","machine_quality");
+
+        function quality_reload(data){
+            if(data == 0){
+                var basic = 99
+            }else if (data != 0){
+                var basic = 100 - data;
+
+            }else if(data == 100){
+                var basic = 0;
+            }
+            quality.draw("machine_quality", [{label: "Basic", color:"#3366CC", value: basic}, {label: "Plus",  color: "#e20e22", value: data}], 180, 105, 130, 100, 30, 0.4);
+            document.getElementById('quality_dashboard').innerHTML = 'Quality ' +data +'%';
+        }
+        quality_reload(data)
+    </script>
+</div>
+
+
+

@@ -1,0 +1,43 @@
+{% extends "administration_base.html" %}
+{% set use_datatables = True %}
+{% set use_parsley = True %}
+{% set use_ajax_download = True %}
+<body>
+    {% block content %}
+    <div class="panel-header panel-header-sm">
+    </div>
+    <div class="content">
+        <div class="row">
+            <!-- User profile form -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">User info</h5>
+                    </div>
+                    <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Company</th>
+                        </tr>
+                        <tr>
+                            <td>{{ user_info.first_name }}</td>
+                            <td>{{ user_info.last_name }}</td>
+                            <td>{{ user_info.username }}</td>
+                            <td>{{ user_info.email }}</td>
+                            <td>{{ user_info.company }}</td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+
+            <!-- End user profile form -->
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+

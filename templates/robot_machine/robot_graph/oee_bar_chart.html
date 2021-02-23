@@ -1,0 +1,109 @@
+<script src="/static/js/code/highcharts.src.js"></script>
+<div id="bar_chart_oee" style="min-width: 310px; height: 220px; margin: 0 auto"></div>
+<script>
+    var actual_oee={{dashboard_data.oee_final}}
+    var actual_availability={{dashboard_data.availability}}
+    var actual_performance={{dashboard_data.performance}}
+    var actual_quality={{dashboard_data.quality}}
+
+
+var MyChartComponent = {
+  updateChart: function() {
+    this.dataFromApi.forEach(function(serie) {
+      this.chart.addSeries(serie, false);
+    }.bind(this));
+    this.chart.redraw();
+    this.chart.hideLoading();
+  },
+  initHighcharts: function() {
+    this.chart = new Highcharts.Chart({
+      lang: {
+        noData: 'Aucune données'
+      },
+      chart: {
+          backgroundColor: "#1e1e1e",
+        type: 'column',
+        renderTo: 'bar_chart_oee'
+      },
+   title: {
+    text: ''
+  },
+  subtitle: {
+    text: ''
+  },
+  credits: {
+      enabled: false
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    title: {
+      text: 'Total percent'
+    }
+
+  },
+  legend: {
+    enabled: false
+  },
+  plotOptions: {
+    series: {
+      borderWidth: 0,
+      dataLabels: {
+        enabled: true,
+        format: '{point.y:.1f}%'
+      }
+    }
+  },
+
+  tooltip: {
+    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+  },
+      series: []
+    });
+    this.chart.showLoading();
+  },
+
+  setDataFromApi: function(actual_oee, actual_availability, actual_performance, actual_quality) {
+      this.dataFromApi = [{
+          "colorByPoint": true,
+          "name": "",
+          boost: {
+            seriesThreshold: 100
+            },
+          "data": [
+              {
+                  "name": "OEE",
+                  "y": actual_oee,
+                   color: '#FF9900'
+              },
+              {
+                  "name": "Availability",
+                  "y": actual_availability,
+                   color: '#109618'
+              },
+              {
+                  "name": "Performance",
+                  "y": actual_performance,
+                   color: '#ff601c'
+              },
+              {
+                  "name": "Quality",
+                  "y": actual_quality,
+                   color: '#e20e22'
+              },
+
+          ]
+      },]
+  },
+
+};
+
+
+MyChartComponent.initHighcharts();
+MyChartComponent.setDataFromApi(Number(actual_oee), Number(actual_availability), Number(actual_performance), Number(actual_quality));
+MyChartComponent.updateChart();
+
+
+</script>

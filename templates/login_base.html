@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>test</title>
+        <!-- Core CSS - Include with every page -->
+        <link href='/static/css/login/bootstrap.min.css' rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        <img src='/static/img/naslovna.png' class="center"/>
+
+                <!-- Core Scripts - Include with every page -->
+                <script type="text/javascript" src="/static/js/login/jquery.min.js"></script>
+                <script type="text/javascript" src="/static/js/login/bootstrap.min.js"></script>
+
+        {% block javascript %}
+        {% endblock %}
+    </body>
+<style>
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+</html>
